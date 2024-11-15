@@ -14,7 +14,7 @@ Entry test submission for Arent Test, powered by ReactJS, tailwindcss, Vite
 Install the dependencies:
 
 ```bash
-npm ci
+npm i
 ```
 
 Run the development server:
