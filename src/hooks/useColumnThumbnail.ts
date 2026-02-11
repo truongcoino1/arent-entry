@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import columnData from "../../mock/thumbnail.json";
 
-export const useColumnThumbnail = () => {
-  const [expand, setExpand] = useState<boolean>(false);
-  const [data, setData] = useState(columnData.thumbnail);
+const PAGE_SIZE = 8;
+const allData = [...columnData.thumbnail, ...columnData.extraThumbnail];
 
-  const onExpand = () => {
-    setData((preState) => [...preState, ...columnData.extraThumbnail]);
-    setExpand(true);
+export const useColumnThumbnail = () => {
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  const items = useMemo(
+    () => allData.slice(0, visibleCount),
+    [visibleCount],
+  );
+
+  const hasMore = visibleCount < allData.length;
+
+  const loadMore = () => {
+    setVisibleCount((prev) => prev + PAGE_SIZE);
   };
-  return {
-    data,
-    setExpand: onExpand,
-    expand,
-  };
+
+  return { items, hasMore, loadMore };
 };

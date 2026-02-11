@@ -25,14 +25,9 @@ function GoToTop() {
 
   return (
     <div
-      className={`GoToTop ${isVisible ? "visible" : "hidden"}`}
+      className={`fixed top-[60%] right-[6rem] cursor-pointer ${isVisible ? "visible" : "hidden"}`}
       onClick={handleGoToTop}
-      style={{
-        position: "fixed",
-        bottom: "2rem",
-        right: "2rem",
-        cursor: "pointer",
-      }}
+     
     >
       <img src={GoToTopIcon} alt="go-to-top" />
     </div>

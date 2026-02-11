@@ -20,60 +20,86 @@ const ELEMENTS = [
 
 const NUMBER = 2;
 
+const NAVIGATION_ITEMS = [
+  {
+    id: "memo",
+    icon: Memo,
+    label: "自分の記録",
+    to: "/records",
+  },
+  {
+    id: "challenge",
+    icon: Challenge,
+    label: "チャレンジ",
+    to: null,
+  },
+  {
+    id: "info",
+    icon: Info,
+    label: "お知らせ",
+    to: null,
+    noticeNumber: NUMBER,
+  },
+];
+
 function Header() {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   return (
-    <div className="h-[84px] w-full bg-dark-600 m-auto">
-      <div className="md:w-3/4 w-[95%] h-full m-auto flex justify-between">
-        <a className="flex items-center" href="/">
-          <img className="h-[64px] w-[144px]" src={Logo} />
+    <div className="h-16 w-full bg-dark-500 shadow-[0px_3px_6px_rgba(0,0,0,0.16)]">
+      <div className="max-w-[960px] h-full mx-auto flex items-center">
+        <a className="flex items-center w-[144px] h-full pl-4" href="/">
+          <img className="w-[109px] h-10" src={Logo} alt="logo" />
         </a>
-        <div className="flex justify-between items-center w-1/2">
-          <div className="inline-flex text-light hover:text-primary-400 cursor-pointer mr-4">
-            <img className="h-[32px] w-[32px]" src={Memo} />
-            <NavLink
-              to="/records"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primary-400 ml-3 lg:block hidden"
-                  : "ml-3 lg:block hidden"
-              }
+        <div className="flex-1" />
+        <div className="flex items-center max-sm:hidden">
+          {NAVIGATION_ITEMS.map((item) => (
+            <div
+              key={item.id}
+              className="group flex items-center w-[160px] h-12 pl-2 gap-2 cursor-pointer"
             >
-              自分の記録
-            </NavLink>
-          </div>
-          <div className="inline-flex text-light hover:text-primary-400 cursor-pointer mr-4">
-            <img className="h-[32px] w-[32px]" src={Challenge} />
-            <span className="lg:block hidden ml-3">チャレンジ</span>
-          </div>
-          <div className="inline-flex text-light hover:text-primary-400 cursor-pointer mr-4">
-            <NoticeNumber number={NUMBER}>
-              <img className="h-[32px] w-[32px]" src={Info} />
-            </NoticeNumber>
-            <span className="lg:block hidden ml-3">お知らせ</span>
-          </div>
-          <div className="ml-4">
-            <Dropdown open={isOpen} elements={ELEMENTS}>
-              {isOpen ? (
-                <img
-                  onClick={() => {
-                    setOpen(false);
-                  }}
-                  className="h-[32px] w-[32px] cursor-pointer"
-                  src={Close}
-                />
+              <NoticeNumber number={item.noticeNumber || 0}>
+                <img className="w-8 h-8" src={item.icon} alt={item.id} />
+              </NoticeNumber>
+              {item.to ? (
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `text-base font-light leading-[23px] ${
+                      isActive
+                        ? "text-primary-400"
+                        : "text-light group-hover:text-primary-400"
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
               ) : (
-                <img
-                  onClick={() => {
-                    setOpen(true);
-                  }}
-                  className="h-[32px] w-[32px] cursor-pointer"
-                  src={Menu}
-                />
+                <span className="text-light group-hover:text-primary-400 text-base font-light leading-[23px]">
+                  {item.label}
+                </span>
               )}
-            </Dropdown>
-          </div>
+            </div>
+          ))}
+        </div>
+        <div className="ml-4 max-sm:mr-4">
+          <Dropdown open={isOpen} elements={ELEMENTS}>
+            {isOpen ? (
+              <img
+                onClick={() => setOpen(false)}
+                className="w-8 h-8 cursor-pointer"
+                src={Close}
+                alt="close"
+              />
+            ) : (
+              <img
+                onClick={() => setOpen(true)}
+                className="w-8 h-8 cursor-pointer"
+                src={Menu}
+                alt="menu"
+              />
+            )}
+          </Dropdown>
         </div>
       </div>
     </div>

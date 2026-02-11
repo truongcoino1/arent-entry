@@ -9,13 +9,13 @@ const FOOTER_DATA = [
 
 const Footer = () => {
   return (
-    <div className="h-[128px] bg-dark-600 mt-10">
-      <div className="lg:w-[960px] md:w-5/6 w-3/4 h-full text-light m-auto flex items-center flex-wrap">
+    <div className="h-[128px] bg-dark-500 mt-16">
+      <div className="lg:w-[960px] md:w-5/6 w-3/4 h-full text-light m-auto flex gap-[45px] items-center flex-wrap">
         {FOOTER_DATA.map((item, index) => {
           return (
             <a
               key={index}
-              className="mr-10 cursor-pointer hover:text-primary-400"
+              className="cursor-pointer text-[11px] leading-4 font-light hover:text-primary-400"
             >
               {item}
             </a>

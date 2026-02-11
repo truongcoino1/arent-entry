@@ -3,13 +3,15 @@ import LinearButton from "../common/LinearButton";
 import MyDiaryItem from "./MyDiary";
 
 const MyDiaryList = () => {
-  const { data, expand, setExpand } = useMyDiary();
+  const { items, hasMore, loadMore } = useMyDiary();
 
   return (
-    <div className="lg:w-[960px] w-full mt-[50px] mx-auto">
-      <h1 className="uppercase text-dark-500 text-[23px] ">my diary</h1>
+    <div className="lg:w-[960px] flex flex-col items-center w-full mx-auto">
+      <h1 className="uppercase text-dark-500 text-[22px] leading-8 w-full">
+        my diary
+      </h1>
       <div className="lg:grid-cols-4 grid md:px-0 px-3 mx-auto gap-4 grid-cols-2 md:grid-cols-3">
-        {data.map((e, idx) => (
+        {items.map((e, idx) => (
           <MyDiaryItem
             key={idx}
             date={e.date}
@@ -18,11 +20,8 @@ const MyDiaryList = () => {
           />
         ))}
       </div>
-      {!expand && (
-        <div
-          className="mx-auto mt-5 w-full  flex justify-center"
-          onClick={() => setExpand()}
-        >
+      {hasMore && (
+        <div className="mt-[28px] mx-auto" onClick={loadMore}>
           <LinearButton name="自分の日記をもっと見る" />
         </div>
       )}

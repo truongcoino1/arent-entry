@@ -1,103 +1,114 @@
-import Highcharts from "highcharts/highstock";
+import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import "highcharts/indicators/indicators";
-import "highcharts/indicators/pivot-points";
-import "highcharts/indicators/macd";
-import "highcharts/modules/exporting";
-import "highcharts/modules/map";
 import { memo } from "react";
-import { themeChart } from "../../utils";
 
 type Props = {
-  data: any;
+  data: {
+    data1: number[];
+    data2: number[];
+  } | null;
+  style?: React.CSSProperties;
 };
 const Chart = (props: Props) => {
   const { data } = props;
 
-  const options = {
-    ...themeChart,
+  const options: Highcharts.Options = {
     chart: {
       type: "line",
-      backgroundColor: "#2E2E2E",
-      borderColor: "#111111",
-      borderWidth: 2,
-      className: "dark-container",
-      plotBackgroundColor: "rgba(255, 255, 255, .1)",
-      plotBorderColor: "#CCCCCC",
-      plotBorderWidth: 1,
+      backgroundColor: "transparent",
+      spacing: [0, 0, 0, 0],
+      margin: [8, 0, 20, 0],
     },
-    title: {
-      text: "",
-    },
-    subtitle: {
-      text: "",
-    },
+    title: { text: undefined },
+    credits: { enabled: false },
+    legend: { enabled: false },
+    exporting: { enabled: false },
+    tooltip: { shared: true },
     xAxis: {
       categories: [
-        "6 月",
-        "7 月",
-        "8 月",
-        "9 月",
-        "10 月",
-        "11 月",
-        "12 月",
-        "1 月",
-        "2 月",
-        "3 月",
-        "4 月",
-        "5 月",
+        "6月",
+        "7月",
+        "8月",
+        "9月",
+        "10月",
+        "11月",
+        "12月",
+        "1月",
+        "2月",
+        "3月",
+        "4月",
+        "5月",
       ],
+      min: 0,
+      max: 11,
+      gridLineWidth: 1,
+      gridLineColor: "#777777",
+      lineWidth: 0,
+      tickWidth: 0,
+      tickmarkPlacement: "on",
+      labels: {
+        useHTML: true,
+        y: 12,
+        formatter: function () {
+          const val = String(this.value);
+          const num = val.replace("月", "");
+          return `<span style="color:#FFFFFF;font-family:Inter;"><span style="font-size:12px">${num}</span><span style="font-size:8px">月</span></span>`;
+        },
+      },
     },
     yAxis: {
-      title: {
-        text: "",
-      },
+      title: { text: undefined },
+      gridLineWidth: 0,
+      lineWidth: 0,
+      labels: { enabled: false },
     },
     plotOptions: {
       line: {
-        dataLabels: {
-          enabled: false,
-          color: "red",
-        },
-        enableMouseTracking: true,
+        lineWidth: 3,
         marker: {
-          lineColor: "#333",
+          enabled: true,
+          radius: 4,
+          symbol: "circle",
+          lineWidth: 0,
         },
-      },
-      spline: {
-        marker: {
-          lineColor: "#333",
-        },
-      },
-      scatter: {
-        marker: {
-          lineColor: "#333",
-        },
-      },
-      candlestick: {
-        lineColor: "white",
       },
     },
     series: [
       {
+        type: "line",
         name: "",
         data: data?.data1,
+        color: "#FFCC21",
+        marker: {
+          fillColor: "#FFCC21",
+        },
       },
       {
+        type: "line",
         name: "",
         data: data?.data2,
+        color: "#8FE9D0",
+        marker: {
+          fillColor: "#8FE9D0",
+        },
       },
     ],
   };
 
   return (
-    <div>
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        constructorType={"chart"}
-      />
-    </div>
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+      
+      containerProps={{
+        style: {
+          height: "293px",
+          width: "79.6%",
+          paddingBottom: "12px",
+          ...props.style,
+        },
+      }}
+    />
   );
 };
 export default memo(Chart);

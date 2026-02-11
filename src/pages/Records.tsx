@@ -7,12 +7,12 @@ import MyDiaryList from "../components/record/MyDiaryList";
 function Records() {
   return (
     <Layout>
-      <RecordSummary />
-      <RecordChart />
-
-      <ExerciseList />
-
-      <MyDiaryList />
+      <div className="flex flex-col gap-14 pt-14">
+        <RecordSummary />
+        <RecordChart />
+        <ExerciseList />
+        <MyDiaryList />
+      </div>
     </Layout>
   );
 }

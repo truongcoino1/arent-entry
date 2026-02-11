@@ -3,12 +3,12 @@ import LinearButton from "../common/LinearButton";
 import ColumnThumbnail from "./ColumnThumbnail";
 
 const ColumnThumbnailList = () => {
-  const { data, setExpand, expand } = useColumnThumbnail();
+  const { items, hasMore, loadMore } = useColumnThumbnail();
 
   return (
-    <>
-      <div className="grid lg:grid-cols-4 grid-cols-2 md:grid-cols-3 mt-6">
-        {data.map((item) => {
+    <div className="flex flex-col items-center">
+      <div className="grid lg:grid-cols-4 gap-x-2 gap-y-[18px] grid-cols-2 md:grid-cols-3">
+        {items.map((item) => {
           return (
             <ColumnThumbnail
               key={item.type}
@@ -19,12 +19,12 @@ const ColumnThumbnailList = () => {
           );
         })}
       </div>
-      {!expand && (
-        <div onClick={() => setExpand()} className="flex justify-center py-4">
+      {hasMore && (
+        <div onClick={loadMore} className="mt-[28px] mx-auto">
           <LinearButton name="コラムをもっと見る" />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

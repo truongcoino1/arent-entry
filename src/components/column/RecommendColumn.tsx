@@ -7,8 +7,8 @@ type Props = {
 function RecommendColumn(props: Props) {
   const { name, description } = props;
   return (
-    <div className="RecommendColumn mt-8 w-[216px] h-[144px] bg-black text-center flex flex-col justify-center">
-      <div className="text-primary-300 text-xl">{name}</div>
+    <div className="w-[216px] h-[144px] bg-dark-600 text-center flex flex-col py-6 px-2 gap-2 justify-center">
+      <div className="text-primary-300 text-[22px] leading-[27px]">{name}</div>
       <img style={{ margin: "0 auto" }} src={path} alt="path" width={56} />
       <div className="text-white">{description}</div>
     </div>

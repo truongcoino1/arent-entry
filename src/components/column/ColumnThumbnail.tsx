@@ -13,7 +13,7 @@ type Props = {
   type: string;
 };
 
-const images: Record<string, any> = {
+const images: Record<string, string> = {
   "1": column1,
   "2": column2,
   "3": column3,
@@ -30,7 +30,7 @@ function ColumnThumbnail(props: Props) {
     image = images[type];
   }
   return (
-    <div className="ColumnThumbnail cursor-pointer w-full mt-6 relative pr-2">
+    <div className=" cursor-pointer w-full relative">
       <div className="relative">
         <img
           src={image}
@@ -41,8 +41,10 @@ function ColumnThumbnail(props: Props) {
           {time}
         </div>
       </div>
-      <div className="text-sm py-1">{name}</div>
-      <div className="text-sm text-primary-400 pb-1">#魚料理 #和食 #DHA</div>
+      <div className="text-[15px] leading-[22px] mt-2">{name}</div>
+      <div className="text-xs text-primary-400 leading-6">
+        #魚料理 #和食 #DHA
+      </div>
     </div>
   );
 }

@@ -1,29 +1,21 @@
-import cup from "/assets/cup.svg";
-import knife from "/assets/knife.svg";
 import linearHexagon from "/assets/linearHexagon.svg";
 type Props = {
   name: string;
   type: string;
+  icon: string;
   onClick?: () => void;
 };
 function Hexagon(props: Props) {
-  const { name, type, onClick } = props;
+  const { name, type, icon, onClick } = props;
   return (
-    <div onClick={onClick} className="Hexagon relative cursor-pointer">
+    <div onClick={onClick} className="min-w-[136px] h-[136px] items-center flex justify-center relative cursor-pointer">
       <img src={linearHexagon} alt="linearHexagon" />
-      {type == "cup" && (
-        <img src={cup} alt="cup" className="absolute top-[24px] left-[30px]" />
-      )}
-      {type == "knife" && (
-        <img
-          src={knife}
-          alt="knife"
-          className="absolute top-[24px] left-[30px]"
-        />
-      )}
-      <p className="absolute top-[80px] text-white text-xl w-[116px] text-center">
+      <div className="absolute flex flex-col items-center">
+      <img src={icon} alt={type}  />
+      <p className="text-white text-xl leading-6 text-center">
         {name}
       </p>
+      </div>
     </div>
   );
 }
